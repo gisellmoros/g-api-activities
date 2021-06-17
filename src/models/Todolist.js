@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const TodolistSchema = new mongoose.Schema(
 	{
@@ -10,10 +10,14 @@ const TodolistSchema = new mongoose.Schema(
 			type: Boolean,
 			default: false,
 		},
+		isActive: {
+			type: Boolean,
+			default: true,
+		},
 	},
 	{
 		timestamps: true,
 	}
 );
 
-export default mongoose.model('Todolist', TodolistSchema);
+export default mongoose.model("Todolist", TodolistSchema);
