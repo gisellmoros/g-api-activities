@@ -1,4 +1,4 @@
-import Todolist from '../models/Todolist.js';
+	import Todolist from '../models/Todolist.js';
 
 export const getTodolist = (req, res) => {
 	try {
@@ -23,6 +23,18 @@ export const getActiveTodolist = (req, res) => {
 		console.log(err);
 	}
 };
+
+export const getTodo = async (req,res) => {
+	try {
+		const todo = await Todolist.findById(req.params.id)
+		res.send(todo)
+	} catch (err) {
+		console.log(err)
+		res.status(404).send('Todo not found.')
+	}
+}
+
+
 
 export const createTodo = (req, res) => {
 	try {
@@ -77,3 +89,28 @@ export const archiveCompleteTodolist = (req,res) => {
 		console.log(err)
 	}
 }
+
+export const updateTodo = async (req,res) => {
+	try {
+		await Todolist.findByIdAndUpdate(
+			req.params.id, 
+			{
+				task: req.body.task
+			}, 
+			{
+				new: true
+			})
+	} catch (err) {
+		console.log(err)
+		res.status(400).send('Todo does not exist.')
+	}
+}
+
+export const deleteTodo = async (req, res) => {
+	try {
+		await Todolist.findByIdAndDelete(req.params.id);
+	} catch (err) {
+		console.log(err);
+		res.send(err.message);
+	}
+};
